@@ -1,0 +1,194 @@
+/* --- Contenedor Principal de la Navbar --- */
+.navbar {
+    background-color: var(--primary-green);
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+/* --- Logo --- */
+.nav-logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.nav-logo:hover {
+    color: var(--accent-gold);
+}
+
+/* --- Menú de Navegación y Acciones (Desktop) --- */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Espacio entre los enlaces y los botones */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Efecto subrayado en hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- Botones de Acción --- */
+.nav-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-login {
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+
+.btn-login:hover {
+    background-color: var(--text-light);
+    color: var(--primary-green);
+}
+
+.btn-registro {
+    background-color: var(--accent-gold);
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.btn-registro:hover {
+    background-color: #a08d6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Menú Hamburguesa (Oculto por defecto) --- */
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.nav-toggle-label span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    margin: 3px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Responsive Design para Móviles y Tablets --- */
+@media (max-width: 768px) {
+    .nav-toggle-label {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px; /* Igual a la altura de la navbar */
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-green);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        /* Animación de despliegue */
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-actions {
+        margin-top: 20px;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 80%;
+    }
+
+    /* --- Estado Activo del Menú (cuando se hace click en la hamburguesa) --- */
+    .nav-toggle:checked ~ .nav-menu {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* --- Animación de la "X" en el menú hamburguesa --- */
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}

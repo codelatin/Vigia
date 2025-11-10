@@ -1,0 +1,41 @@
+  {% load static %}
+<link rel="stylesheet" href="{% static 'home/css/estilos_navbar.css' %}">
+  <header class="navbar">
+    <div class="navbar-container">
+        <!-- Logo -->
+        <a href="{% url 'home:home' %}" class="nav-logo">VIGIA</a>
+
+        <!-- Checkbox para el menú hamburguesa (oculto) -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        
+        <!-- Label del menú hamburguesa (visible en móvil) -->
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <!-- Contenedor del menú de navegación y botones -->
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="{% url 'vehiculos:listar_vehiculos' %}">Vehículos</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                {% if user.is_authenticated %}
+                    <!-- Si el usuario ha iniciado sesión -->
+                    <span class="user-info">
+                        👋Hola Lanza {{ user.username }}
+                    </span>
+                    <a href="{% url 'auths:logout' %}" class="btn btn-logout" style="background-color: black;color: white;">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Si no ha iniciado sesión -->
+                    <a href="{% url 'auths:login' %}" class="btn btn-login">Login</a>
+                    <a href="{% url 'auths:registro' %}" class="btn btn-registro">Registro</a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</header>

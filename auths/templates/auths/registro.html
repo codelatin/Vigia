@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema CMMS Militar</title>
+    <link rel="stylesheet" href="{% static 'auths/css/registro.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="register-card">
+            <div class="card-header">
+                <div class="header-icon">⚙️</div>
+                <h1>Registro de Usuario</h1>
+                <p>Sistema de Gestión de Mantenimiento Preventivo - Complete el formulario para crear su cuenta</p>
+            </div>
+
+            <div class="card-body">
+                <form method="POST" action="{% url 'auths:registro' %}">
+                    {% csrf_token %}
+                    
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-primary">Completar Registro</button>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <p>¿Ya tiene una cuenta? <a href="{% url 'auths:login' %}">Iniciar Sesión</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Militar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #2c3e30;
+            border: 3px solid #4a5f4d;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+                        inset 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            padding: 40px 30px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b8e23;
+            padding-bottom: 20px;
+        }
+
+        .login-header h1 {
+            color: #c4d82e;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #a8b89f;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #c4d82e;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1a2520;
+            border: 2px solid #4a5f4d;
+            color: #c4d82e;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #6b8e23;
+            background: #243028;
+            box-shadow: 0 0 10px rgba(107, 142, 35, 0.3);
+        }
+
+        input::placeholder {
+            color: #5a6b5a;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6b8e23 0%, #556b2f 100%);
+            border: 2px solid #4a5f4d;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #7fa534 0%, #6b8e23 100%);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(107, 142, 35, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #6b8e23;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 13px;
+            color: #a8b89f;
+            text-transform: none;
+            letter-spacing: normal;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #4a5f4d;
+        }
+
+        .footer-links a {
+            color: #c4d82e;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #7fa534;
+            text-decoration: underline;
+        }
+
+        .security-badge {
+            text-align: center;
+            margin-top: 15px;
+            color: #6b8e23;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .login-header h1 {
+                font-size: 24px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            .btn-login {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px 15px;
+            }
+
+            .login-header h1 {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                padding: 10px 12px;
+            }
+
+            .btn-login {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>▣ ACCESO MILITAR</h1>
+            <p>SISTEMA DE AUTENTICACIÓN SEGURA</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Usuario / ID Militar</label>
+                <input type="text" id="username" name="username" placeholder="Ingrese su usuario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Recordar credenciales en este dispositivo</label>
+            </div>
+
+            <button type="submit" class="btn-login">⬢ Iniciar Sesión</button>
+
+            <div class="footer-links">
+                <a href="#">¿Olvidó su contraseña?</a>
+            </div>
+
+            <div class="security-badge">
+                🔒 CONEXIÓN ENCRIPTADA SSL
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                alert('Validando credenciales...\nUsuario: ' + username);
+                // Aquí iría la lógica de autenticación
+            }
+        });
+    </script>
+</body>
+</html>

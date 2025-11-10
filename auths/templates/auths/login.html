@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Militar - Sistema CMMS</title>
+    <link rel="stylesheet" href="{% static 'auths/css/login.css' %}">
+    
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-side">
+            <div class="side-content">
+                <div class="logo-section">
+                    <div class="logo-icon">🛡️</div>
+                    <h2>Sistema CMMS</h2>
+                    <p>Plataforma Digital de Gestión de Mantenimiento Preventivo para Unidades Militares</p>
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>
+                            <strong>Control Total</strong><br>
+                            Gestión centralizada de órdenes de trabajo y mantenimiento preventivo
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>
+                            <strong>Trazabilidad</strong><br>
+                            Historial completo por vehículo con evidencias y responsables
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>
+                            <strong>Alertas Inteligentes</strong><br>
+                            Notificaciones automáticas de vencimientos y mantenimientos pendientes
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="form-header">
+                <h1>Bienvenido</h1>
+                <p>Ingrese sus credenciales para acceder al sistema</p>
+            </div>
+
+       <form method="post" action="{% url 'auths:login' %}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Usuario</label>
+        <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            {{ form.username }}
+        </div>
+        {% if form.username.errors %}
+            <div class="error">{{ form.username.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">Contraseña</label>
+        <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            {{ form.password }}
+        </div>
+        {% if form.password.errors %}
+            <div class="error">{{ form.password.errors }}</div>
+        {% endif %}
+    </div>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <button type="submit" class="btn-login">Iniciar Sesión</button>
+</form>
+            <div class="footer-text">
+                © 2025 Sistema de Gestión de Mantenimiento Vehicular
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                alert('Verificando credenciales...\nUsuario: ' + username + '\n\nRedirigiendo al panel de control...');
+                // Aquí iría la lógica de autenticación
+            }
+        });
+    </script>
+</body>
+</html>

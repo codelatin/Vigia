@@ -1,0 +1,884 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGMV - Sistema de Gestión de Mantenimiento Vehicular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --military-green: #2d4a2b;
+            --dark-green: #1a2e1a;
+            --accent-gold: #c9a961;
+            --light-bg: #f4f1e8;
+            --text-dark: #1f2937;
+            --steel-gray: #4a5568;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+       /* --- Variables de Estilo --- */
+:root {
+    --primary-green: #2F3E2E;
+    --accent-gold: #C2B280;
+    --text-light: #E0E0E0;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+/* --- Estilos Globales y Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: #f4f4f4;
+}
+
+/* --- Contenedor Principal de la Navbar --- */
+.navbar {
+    background-color: var(--primary-green);
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+/* --- Logo --- */
+.nav-logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.nav-logo:hover {
+    color: var(--accent-gold);
+}
+
+/* --- Menú de Navegación y Acciones (Desktop) --- */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Espacio entre los enlaces y los botones */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Efecto subrayado en hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- Botones de Acción --- */
+.nav-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-login {
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+
+.btn-login:hover {
+    background-color: var(--text-light);
+    color: var(--primary-green);
+}
+
+.btn-registro {
+    background-color: var(--accent-gold);
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.btn-registro:hover {
+    background-color: #a08d6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Menú Hamburguesa (Oculto por defecto) --- */
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.nav-toggle-label span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    margin: 3px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Responsive Design para Móviles y Tablets --- */
+@media (max-width: 768px) {
+    .nav-toggle-label {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px; /* Igual a la altura de la navbar */
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-green);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        /* Animación de despliegue */
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-actions {
+        margin-top: 20px;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 80%;
+    }
+
+    /* --- Estado Activo del Menú (cuando se hace click en la hamburguesa) --- */
+    .nav-toggle:checked ~ .nav-menu {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* --- Animación de la "X" en el menú hamburguesa --- */
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--military-green) 50%, #3d5a3a 100%);
+            color: white;
+            padding: 120px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(201, 169, 97, 0.03) 10px,
+                    rgba(201, 169, 97, 0.03) 20px
+                );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--dark-green);
+        }
+
+        .btn-primary:hover {
+            background: #d4b76a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--military-green);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vehicle-icon {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(201, 169, 97, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--military-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--steel-gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--accent-gold);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--military-green), var(--dark-green));
+            color: var(--accent-gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--military-green);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--steel-gray);
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .benefits-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateX(10px);
+        }
+
+        .benefit-icon {
+            min-width: 40px;
+            height: 40px;
+            background: var(--military-green);
+            color: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .benefit-item h4 {
+            color: var(--military-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--military-green), var(--dark-green));
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-green), var(--military-green));
+            color: white;
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(201, 169, 97, 0.05) 20px,
+                rgba(201, 169, 97, 0.05) 40px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            color: white;
+            padding: 3rem 5% 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--dark-green);
+                width: 100%;
+                padding: 2rem;
+                transition: left 0.3s;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .vehicle-icon {
+                display: none;
+            }
+
+            .benefits-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+   {% include 'home/includes/navbar.html' %}
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Sistema de Gestión de Mantenimiento Vehicular</h1>
+                <p class="subtitle">Plataforma Digital para Unidades Militares</p>
+                <p>Controle el mantenimiento preventivo de su flota vehicular con trazabilidad completa, alertas automáticas e indicadores en tiempo real. Mejore la disponibilidad operativa y tome decisiones basadas en datos confiables.</p>
+                <div class="cta-buttons">
+                    <a href="#caracteristicas" class="btn btn-primary">Conocer Más</a>
+                    <a href="#contacto" class="btn btn-secondary">Solicitar Demo</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="vehicle-icon">🚙</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="caracteristicas">
+        <div class="section-header">
+            <h2>Características Principales</h2>
+            <p>Herramientas diseñadas específicamente para las necesidades operativas de unidades militares</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Gestión de Órdenes de Trabajo</h3>
+                <p>Centralice todas las OT preventivas y correctivas. Asigne responsables, registre actividades y cierre con evidencia fotográfica y firmas digitales.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Alertas Automáticas</h3>
+                <p>Notificaciones anticipadas basadas en tiempo, kilometraje u horas de motor. Nunca más pierda una intervención preventiva programada.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Tableros de Control</h3>
+                <p>Visualice KPIs críticos: disponibilidad operativa, MTTR, cumplimiento del plan preventivo y estado de la flota en tiempo real.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗂️</div>
+                <h3>Historial Completo</h3>
+                <p>Trazabilidad total por vehículo: qué se hizo, cuándo, quién lo realizó y qué repuestos se utilizaron. Auditable y verificable.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Roles Diferenciados</h3>
+                <p>Perfiles para operadores, técnicos, supervisores y comandantes. Acceso segmentado según responsabilidad y necesidad de información.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Acceso Móvil</h3>
+                <p>Registre intervenciones desde terreno con dispositivos móviles. Sincronización automática y funcionamiento offline cuando sea necesario.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="beneficios">
+        <div class="section-header">
+            <h2>Beneficios Operativos</h2>
+            <p>Resultados medibles que impactan directamente la preparación y eficiencia de su unidad</p>
+        </div>
+        <div class="benefits-content">
+            <div>
+                <ul class="benefits-list">
+                    <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Mayor Disponibilidad</h4>
+                            <p>Reduzca paros evitables mediante mantenimiento preventivo oportuno y planificado</p>
+                        </div>
+                    </li>
+                    <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Menor MTTR</h4>
+                            <p>Diagnósticos más rápidos con historial completo y datos de intervenciones previas</p>
+                        </div>
+                    </li>
+                    <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Control de Costos</h4>
+                            <p>Evite sobre-mantenimiento y retrabajos con registros precisos de consumos</p>
+                        </div>
+                    </li>
+                    <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Toma de Decisiones Basada en Datos</h4>
+                            <p>Priorice recursos e intervenciones con información verificable y oportuna</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">+30%</div>
+                        <div class="stat-label">Disponibilidad Operativa</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">-40%</div>
+                        <div class="stat-label">Tiempo de Reparación</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Trazabilidad de Registros</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Cumplimiento del Plan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contacto">
+        <div class="cta-content">
+            <h2>¿Listo para Transformar su Gestión de Mantenimiento?</h2>
+            <p>Únase a las unidades militares que ya confían en SGMV para mantener su flota operativa y lista para la misión.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Solicitar Demostración</button>
+                <button class="btn btn-secondary">Descargar Brochure</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SGMV</h3>
+                <p>Sistema de Gestión de Mantenimiento Vehicular diseñado para fortalecer la preparación operativa de unidades militares.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Producto</h3>
+                <ul>
+                    <li><a href="#caracteristicas">Características</a></li>
+                    <li><a href="#beneficios">Beneficios</a></li>
+                    <li><a href="#">Casos de Éxito</a></li>
+                    <li><a href="#">Documentación</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Capacitación</a></li>
+                    <li><a href="#">Contacto Técnico</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Investigación</h3>
+                <ul>
+                    <li><a href="#">Equipo de Desarrollo</a></li>
+                    <li><a href="#">AULA K3 - Compañía Junín</a></li>
+                    <li><a href="#">Unidad de Investigación</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SGMV - Sistema de Gestión de Mantenimiento Vehicular. Proyecto de Investigación Militar.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease-out';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .benefit-item, .stat-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

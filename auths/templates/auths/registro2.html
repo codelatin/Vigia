@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema de Mantenimiento Vehicular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: #2c3e30;
+            border: 3px solid #4a5f4d;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+                        inset 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 30px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b8e23;
+            padding-bottom: 20px;
+        }
+
+        .register-header h1 {
+            color: #c4d82e;
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .register-header p {
+            color: #a8b89f;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #c4d82e;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        label .required {
+            color: #ff6b6b;
+            margin-left: 3px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1a2520;
+            border: 2px solid #4a5f4d;
+            color: #c4d82e;
+            font-size: 15px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4d82e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
+        }
+
+        select option {
+            background: #1a2520;
+            color: #c4d82e;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #6b8e23;
+            background: #243028;
+            box-shadow: 0 0 10px rgba(107, 142, 35, 0.3);
+        }
+
+        input::placeholder {
+            color: #5a6b5a;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            font-size: 11px;
+            height: 15px;
+        }
+
+        .strength-weak { color: #ff6b6b; }
+        .strength-medium { color: #ffd93d; }
+        .strength-strong { color: #6bcf7f; }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #6b8e23;
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 12px;
+            color: #a8b89f;
+            text-transform: none;
+            letter-spacing: normal;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .checkbox-group label a {
+            color: #c4d82e;
+            text-decoration: underline;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6b8e23 0%, #556b2f 100%);
+            border: 2px solid #4a5f4d;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            background: linear-gradient(135deg, #7fa534 0%, #6b8e23 100%);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(107, 142, 35, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #4a5f4d;
+            font-size: 13px;
+            color: #a8b89f;
+        }
+
+        .footer-links a {
+            color: #c4d82e;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #7fa534;
+            text-decoration: underline;
+        }
+
+        .info-badge {
+            background: rgba(107, 142, 35, 0.2);
+            border-left: 3px solid #6b8e23;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #a8b89f;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 11px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .register-container {
+                padding: 30px 20px;
+            }
+
+            .register-header h1 {
+                font-size: 22px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"],
+            select,
+            .btn-register {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 25px 15px;
+            }
+
+            .register-header h1 {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+
+            .register-header p {
+                font-size: 10px;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"],
+            select {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .btn-register {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .info-badge {
+                font-size: 11px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>▣ REGISTRO DE USUARIO</h1>
+            <p>SISTEMA DE GESTIÓN DE MANTENIMIENTO PREVENTIVO</p>
+            <p>PLATAFORMA DIGITAL - UNIDADES MILITARES</p>
+        </div>
+
+        <div class="info-badge">
+            ⚠ Complete todos los campos obligatorios marcados con asterisco (*). La información será utilizada para asignar permisos y responsabilidades dentro del sistema.
+        </div>
+
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Nombres <span class="required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Ingrese sus nombres" required>
+                    <span class="error-message" id="firstNameError">Campo requerido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Apellidos <span class="required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Ingrese sus apellidos" required>
+                    <span class="error-message" id="lastNameError">Campo requerido</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="militaryId">ID Militar / Cédula <span class="required">*</span></label>
+                    <input type="text" id="militaryId" name="militaryId" placeholder="Ej: 1234567890" required>
+                    <span class="error-message" id="militaryIdError">Formato inválido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="rank">Rango / Posición <span class="required">*</span></label>
+                    <select id="rank" name="rank" required>
+                        <option value="">Seleccione...</option>
+                        <option value="soldado">Soldado Profesional</option>
+                        <option value="suboficial">Suboficial</option>
+                        <option value="tecnico">Técnico Mantenimiento</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="jefe">Jefe de Unidad</option>
+                        <option value="administrador">Administrador Sistema</option>
+                    </select>
+                    <span class="error-message" id="rankError">Debe seleccionar un rango</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="unit">Unidad / Compañía <span class="required">*</span></label>
+                    <input type="text" id="unit" name="unit" placeholder="Ej: Compañía Junín" required>
+                    <span class="error-message" id="unitError">Campo requerido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" placeholder="3001234567">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="email">Correo Electrónico <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="usuario@ejercito.mil.co" required>
+                <span class="error-message" id="emailError">Correo inválido</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Usuario <span class="required">*</span></label>
+                    <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+                    <span class="error-message" id="usernameError">Mínimo 4 caracteres</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" placeholder="Contraseña segura" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                    <span class="error-message" id="passwordError">Mínimo 8 caracteres</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Contraseña <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repita la contraseña" required>
+                <span class="error-message" id="confirmPasswordError">Las contraseñas no coinciden</span>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                    Acepto los <a href="#">términos y condiciones</a> del sistema y me comprometo a usar la plataforma conforme a los protocolos de seguridad de la información establecidos.
+                </label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="dataPrivacy" name="dataPrivacy" required>
+                <label for="dataPrivacy">
+                    Autorizo el tratamiento de mis datos personales según la <a href="#">política de privacidad</a> institucional.
+                </label>
+            </div>
+
+            <button type="submit" class="btn-register" id="submitBtn">⬢ Registrar Usuario</button>
+
+            <div class="footer-links">
+                ¿Ya tiene una cuenta? <a href="#">Iniciar Sesión</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const strengthIndicator = document.getElementById('passwordStrength');
+
+        // Validación de fortaleza de contraseña
+        password.addEventListener('input', function() {
+            const value = this.value;
+            let strength = '';
+            let className = '';
+
+            if (value.length === 0) {
+                strength = '';
+            } else if (value.length < 6) {
+                strength = '⚠ Débil';
+                className = 'strength-weak';
+            } else if (value.length < 10) {
+                strength = '⚡ Media';
+                className = 'strength-medium';
+            } else {
+                strength = '✓ Fuerte';
+                className = 'strength-strong';
+            }
+
+            strengthIndicator.textContent = strength;
+            strengthIndicator.className = 'password-strength ' + className;
+        });
+
+        // Validación del formulario
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Limpiar mensajes de error
+            document.querySelectorAll('.error-message').forEach(msg => {
+                msg.classList.remove('show');
+            });
+
+            // Validar campos requeridos
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const militaryId = document.getElementById('militaryId').value.trim();
+            const rank = document.getElementById('rank').value;
+            const unit = document.getElementById('unit').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const pass = password.value;
+            const confirmPass = confirmPassword.value;
+            const terms = document.getElementById('terms').checked;
+            const dataPrivacy = document.getElementById('dataPrivacy').checked;
+
+            if (!firstName) {
+                document.getElementById('firstNameError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!lastName) {
+                document.getElementById('lastNameError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!militaryId || militaryId.length < 6) {
+                document.getElementById('militaryIdError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!rank) {
+                document.getElementById('rankError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!unit) {
+                document.getElementById('unitError').classList.add('show');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!username || username.length < 4) {
+                document.getElementById('usernameError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!pass || pass.length < 8) {
+                document.getElementById('passwordError').classList.add('show');
+                isValid = false;
+            }
+
+            if (pass !== confirmPass) {
+                document.getElementById('confirmPasswordError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!terms || !dataPrivacy) {
+                alert('Debe aceptar los términos y condiciones y la política de privacidad.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registro exitoso!\n\nUsuario: ' + username + '\nRango: ' + rank + '\nUnidad: ' + unit + '\n\nSu solicitud será revisada por el administrador del sistema.');
+                // Aquí iría la lógica de envío al servidor
+                form.reset();
+                strengthIndicator.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
